@@ -1,5 +1,6 @@
 package quru.qa;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.FileDownloadMode;
 import org.junit.jupiter.api.Test;
@@ -13,9 +14,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class SelenideFilesTests {
 // это если нету ссылки href только использовать если нету хреф а то тесты будут не стабильны
-    static {
-        Configuration.fileDownload = FileDownloadMode.PROXY;
-    }
+//    static {
+//        Configuration.fileDownload = FileDownloadMode.PROXY;
+//    }
 
     // это если есть ссылка href
     @Test
@@ -32,6 +33,7 @@ public class SelenideFilesTests {
     @Test
     void selenideUploadFile(){
         open("https://fineuploader.com/demos.html");
-        $("input[type='file']").uploadFile(new File("build/downloads/b0536fda-a62a-4bb7-9b4c-6e47702e115e/README.md"));
+        $("input[type='file']").uploadFromClasspath("scrum-poster_print.jpeg");
+        $("div.qq-file-info").shouldHave(Condition.text("scrum-poster_print.jpeg"));
     }
 }
